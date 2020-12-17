@@ -1,40 +1,37 @@
 require_relative '../lib/greengrocer_main_class'
 
-▼（単体テスト）インスタンスの生成（異常系は対処していないのでなし）
- 【単体テスト1 正常系】productsが期待通りになっている
- 【単体テスト2 正常系】greengrocer1が期待通りになっている
- 【単体テスト3 正常系】userが期待通りになっている
-  
-▼（単体テスト）メソッドの動作
- 【単体テスト4 異常系】register_productメソッドが期待通り動作しない
- 【〃         正常系】register_productメソッドが期待通り動作する
- 【単体テスト5 異常系】disp_productsメソッドが期待通り動作しない
- 【〃         正常系】disp_productsメソッドが期待通り動作する
- 【単体テスト6 異常系】choose_productメソッドが期待通り動作しない
- 【〃         正常系】choose_productメソッドが期待通り動作する
- 【単体テスト7 異常系】ask_quantityメソッドが期待通り動作しない
- 【〃         正常系】ask_quantityメソッドが期待通り動作する
- 【単体テスト8 異常系】decide_quantityメソッドが期待通り動作しない
- 【〃         正常系】decide_quantityメソッドが期待通り動作する
- 【単体テスト9 異常系】calculate_chargesメソッドが期待通り動作する
- 【〃         正常系】alculate_chargesメソッドが期待通り動作する
-
-▼（総合テスト）
- 【総合テスト1 異常系】（対処していないので）なし
- 【〃         正常系】productsというインスタンスが期待するものと同じであること
- 【総合テスト2 異常系】（対処していないので）なし
- 【〃         正常系】greengrocer1というインスタンスが期待するものと同じであること
- 【総合テスト3 異常系】（対処していないので）なし
- 【〃         正常系】greengrocer1インスタンスが期待するもの(商品を追加したもの）と同じであること
- 【総合テスト4 異常系】（対処していないので）なし
- 【〃         正常系】（※単体テストで済みなので不要？）userというインスタンスが期待するものと同じであること
- 【総合テスト5 異常系】商品の表示結果が期待するものではないこと(idが30以下の場合、37以上の場合）
- 【〃         正常系】商品の表示結果が期待するものと同じであること(idが31〜36の場合）
- 【総合テスト6 異常系】不正な入力値の場合は商品が存在しないこと
- 【〃         正常系】正しい入力値の場合、商品が存在すること
- 【総合テスト7 異常系】putsの処理が正しく行われないこと（商品の名前が代入されないこと）
- 【〃         正常系】putsの処理が正しく行われること（商品の名前が代入されていること）
- 【総合テスト8 異常系】正しく処理されないこと
- 【〃         正常系】@quantity_of_productが１以上ならbreak、そうでなければ再入力処理されること（この内容のテストできるのか？）
- 【総合テスト9 異常系】正しく処理されないこと
- 【〃         正常系】@quantity_of_productが5個未満の場合、5個以上の場合で正しく計算されること
+# ▼（単体テスト）インスタンスの生成（異常系は対処していないのでなし）
+RSpec.describe Product do
+  describe "【単体テスト1 正常系】 Productsクラスの情報" do
+    let(:params) {{name: "トマト", price: 100}}
+    let(:params2) {{name: "きゅうり", price: 200}}
+    context "名前がトマトの場合" do
+      it "idが正しく振られること" do
+        product = Product.new(params)
+        expect(product.id).to eq 37
+      end
+      it "名前の値が正しいこと" do
+        product = Product.new(params)
+        expect(product.name).to eq "トマト"
+      end
+      it "金額の値が正しいこと" do
+        product = Product.new(params)
+        expect(product.price).to eq 100
+      end
+    end
+    context "名前がきゅうりの場合" do
+        it "idが正しく振られること" do
+          product = Product.new(params2)
+          expect(product.id).to eq 40
+        end
+        it "名前の値が正しいこと" do
+          product = Product.new(params2)
+          expect(product.name).to eq "きゅうり"
+        end
+        it "金額の値が正しいこと" do
+          product = Product.new(params2)
+          expect(product.price).to eq 200
+        end
+      end
+  end
+end
